@@ -1,11 +1,13 @@
 import React from 'react';
-import './App.css';
+import './App.scss';
+import { MoexBondsState } from './context/MoexBondsState';
+import { BondsCalculator } from './pages/BondsCalculator';
 
 function App() {
   return (
-    <div className="App">
-      <h1>Moex bonds calculator!!</h1>
-    </div>
+    <MoexBondsState>
+      <BondsCalculator />
+    </MoexBondsState>
   );
 }
 
