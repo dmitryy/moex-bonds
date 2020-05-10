@@ -1,12 +1,12 @@
 import React from 'react';
 import './App.scss';
 import { MoexBondsProvider } from './context/MoexBondsProvider';
-import { BondsCalculator } from './pages/BondsCalculator';
+import { Home } from './pages/Home';
 
 function App() {
   return (
     <MoexBondsProvider>
-      <BondsCalculator />
+       <Home />
     </MoexBondsProvider>
   );
 }

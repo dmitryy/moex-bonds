@@ -45,15 +45,36 @@ export const mapResponseToBonds = (securities, columns) => {
             currency: value.CURRENCYID,
             value: value.LOTVALUE,
             board: value.BOARDID,
-            isin: value.ISIN
+            isin: value.ISIN,
+
+            // months that coupon paid, starting from 1 till 12
+            months: calculateCouponMonths(value.NEXTCOUPON, value.MATDATE, value.COUPONPERIOD)
         };
 
         if (bond[2] === 'ОФЗ 26227') {
-            console.log('securities')
             console.log(value)
             console.log(returnValue)
         }
 
         return returnValue;
     });
+}
+
+/**
+ * Returns array of month with coupon paind, starting from 1 till 12
+ * @param {*} couponDateStr 
+ * @param {*} expireDateStr 
+ * @param {*} period 
+ */
+const calculateCouponMonths = (couponDateStr, expireDateStr, period) => {
+    let couponDate = new Date(couponDateStr);
+    let expireDate = new Date(expireDateStr);
+    let months = {};
+
+    while (couponDate < expireDate) {
+        months[couponDate.getMonth() + 1] = couponDate;
+        couponDate.setDate(couponDate.getDate() + period);
+    }
+
+    return Object.keys(months).map(m => parseInt(m));
 }
