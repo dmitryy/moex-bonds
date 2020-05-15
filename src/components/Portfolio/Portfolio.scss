@@ -1,0 +1,56 @@
+.portfolio {
+    padding: 10px;
+
+    h2 {
+        margin: 0;
+        padding: 0;
+        color: goldenrod;
+        font-weight: normal;
+        opacity: .5;
+    }
+
+    .empty {
+        border: 1px dashed goldenrod;
+        border-radius: 15px;
+        color: goldenrod;
+        padding: 100px;
+        text-align: center;
+        text-transform: lowercase;
+        opacity: .3;
+    }
+
+    .list {
+        padding: 10px;
+
+        .bond {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+
+            .name {
+                text-overflow: ellipsis;
+            }
+
+            .coupon {
+                padding-right: 10px;
+                
+            }
+
+            .count {
+                width: 100px;
+            }
+
+            .cost {
+                text-align: right;
+                width: 100px;
+            }
+        }
+
+        .total {
+            font-weight: bold;
+            padding-top: 5px;
+            text-align: right;
+        }
+    }
+}

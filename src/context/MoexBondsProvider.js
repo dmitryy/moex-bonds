@@ -1,6 +1,6 @@
 import React, { useReducer } from 'react'
 import { MoexBondsReducer } from './MoexBondsReducer'
-import { GET_ALL_BOARDS, GET_ALL_BONDS, SET_LOADING, SET_FILTERED_BONDS } from '../store/actions/ActionTypes';
+import { GET_ALL_BOARDS, GET_ALL_BONDS, SET_LOADING, SET_FILTERED_BONDS, SET_FILTER, SET_PORTFOLIO } from '../store/actions/ActionTypes';
 import { MoexBondsContext } from './MoexBondsContext';
 import { 
     getBonds as getMoexBonds, 
@@ -12,10 +12,14 @@ export const MoexBondsProvider = ({children}) => {
     const initialState = {
         boards: [],
         bonds: [],
-        filteredBoards: ['TQOD', 'TQOB', 'TQCB'],
-        filteredBonds: [],
-        currencies: ['SUR'],
-        loading: false
+        filter: {
+            boards: ['TQOD', 'TQOB', 'TQCB'],
+            currencies: ['SUR'],
+            month: null,
+        },
+        initialBonds: [],
+        loading: false,
+        portfolio: []
     }
 
     const [state, dispatch] = useReducer(MoexBondsReducer, initialState);
@@ -41,30 +45,44 @@ export const MoexBondsProvider = ({children}) => {
         setLoading();
         
         const bonds = await getMoexBonds();
-        const boards = state.filteredBoards;
-        const currencies = state.currencies;
-        const filteredBonds = bonds.filter(bond => boards.includes(bond.board)
-            && currencies.includes(bond.currency) 
-            && bond.price != null
-            && bond.coupon > 0
-        );
-
-        setFilteredBonds(filteredBonds);
 
         dispatch({
             type: GET_ALL_BONDS,
-            payload: bonds
+            payload: {
+                initialBonds: bonds,
+                bonds: getFilteredBonds(bonds, state.filter)
+            }
         });
     }
 
     /**
      * 
+     * @param {object} filter - bonds filter
      */
-    const setFilteredBonds = (filteredBonds) => {
+    const setFilter = (filter) => {
         dispatch({
-            type: SET_FILTERED_BONDS,
-            payload: filteredBonds
+            type: SET_FILTER,
+            payload: {
+                filter: filter,
+                bonds: getFilteredBonds(state.initialBonds, filter)
+            }
         });
+    }
+
+    /**
+     * get bonds according to filter set
+     */
+    const getFilteredBonds = (bonds, filter) => {
+        const boards = filter.boards;
+        const currencies = filter.currencies;
+        const month = filter.month;
+        const filteredBonds = bonds.filter(bond => boards.includes(bond.board)
+            && currencies.includes(bond.currency) 
+            && (!month || bond.months.includes(month))
+            && bond.price != null
+            && bond.coupon > 0
+        );
+        return filteredBonds;
     }
 
     /**
@@ -76,12 +94,23 @@ export const MoexBondsProvider = ({children}) => {
         })
     }
 
-    const { bonds, filteredBonds } = state;
+    /**
+     * 
+     * @param {object} portfolio 
+     */
+    const setPortfolio = (portfolio) => {
+        dispatch({
+            type: SET_PORTFOLIO,
+            payload: portfolio
+        })
+    }
+
+    const { bonds, filter, portfolio } = state;
 
     return (
         <MoexBondsContext.Provider value={{
-            getBonds,
-            bonds, filteredBonds 
+            bonds, filter, portfolio,
+            getBonds, setFilter, setPortfolio
         }}>
             {children}
         </MoexBondsContext.Provider>

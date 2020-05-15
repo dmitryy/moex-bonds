@@ -30,7 +30,7 @@ export const BondsTable = (props) => {
     };
     
     return (
-        <Paper>
+        <React.Fragment>
             <TableContainer>
                 <Table size='small'>
                     <BondTableHead
@@ -64,6 +64,6 @@ export const BondsTable = (props) => {
                 onChangePage={handleChangePage}
                 onChangeRowsPerPage={handleChangeRowsPerPage}
             />
-        </Paper>
+        </React.Fragment>
     )
 }

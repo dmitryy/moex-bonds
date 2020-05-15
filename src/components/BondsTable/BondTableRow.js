@@ -11,8 +11,10 @@ export const BondTableRow = (props) => {
     return (
         <TableRow hover>
             {columns.map(col => 
-                <TableCell align="right" key={col.id}>
-                    {col.template
+                <TableCell 
+                    align={col.numeric ? 'right' : 'left'}
+                    key={col.id}>
+                    {col.template && col.onClick
                         ? React.cloneElement(col.template, {onClick: () => { handleRowClick(row, col)}})
                         : row[col.id]
                     }

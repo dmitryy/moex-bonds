@@ -12,16 +12,22 @@ export const Dialog = (props) => {
                     { id: 'name', numeric: false, disablePadding: true, label: 'Название' },
                     { id: 'value', numeric: true, disablePadding: true, label: 'Номинал' },
                     { id: 'price', numeric: true, disablePadding: false, label: 'Тек.Цена' },
+                    { id: 'coupon', numeric: true, disablePadding: false, label: 'Купон' },
+                    { id: 'couponPeriod', numeric: true, disablePadding: false, label: 'Период' },
+                    { id: 'couponPercent', numeric: true, disablePadding: false, label: 'Доходность' },
                     { id: 'isin', numeric: false, disablePadding: false,
                         template: <Button>remove</Button>,
                         onClick: props.removePortfolio
                     }
                 ]} />
-                
+
                 <BondsTable bonds={props.availableBonds} columns={[
                     { id: 'name', numeric: false, disablePadding: true, label: 'Название' },
                     { id: 'value', numeric: true, disablePadding: true, label: 'Номинал' },
                     { id: 'price', numeric: true, disablePadding: false, label: 'Тек.Цена' },
+                    { id: 'coupon', numeric: true, disablePadding: false, label: 'Купон' },
+                    { id: 'couponPeriod', numeric: true, disablePadding: false, label: 'Период' },
+                    { id: 'couponPercent', numeric: true, disablePadding: false, label: 'Доходность' },
                     { id: 'isin', numeric: false, disablePadding: false, 
                         template: <Button>add</Button>, 
                         onClick: props.addPortfolio
