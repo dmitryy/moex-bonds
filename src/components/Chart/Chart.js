@@ -1,23 +1,32 @@
 import React from 'react'
 import { useContext } from 'react';
 import { MoexBondsContext } from '../../context/MoexBondsContext';
-
-const months = [
-    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12
-];
+import { months } from '../../common/months';
+import './Chart.scss';
 
 export const Chart = () => {
     const { portfolio } = useContext(MoexBondsContext);
     const portfolioMonths = {};
+    let maxCouponValue = 0;
+    let minCouponValue = 0;
 
     const calculateTotalCoupon = (items) => {
         let total = 0;
-        
         items.map(item => {
             total += item.count * parseFloat(item.bond.coupon);
         });
+        return Math.round(total);
+    }
 
-        return Math.round(total * 100) / 100;
+    const getCouponValue = (monthIndex) => {
+        return portfolioMonths[monthIndex] ? portfolioMonths[monthIndex].coupon : 0;
+    }
+
+    const getBarHeightString = (monthIndex) => {
+        const coupon = getCouponValue(monthIndex);
+        let percent = coupon * 100 / maxCouponValue;
+        if (percent < 8) percent = 8;
+        return percent + '%';
     }
 
     portfolio.map(item => {
@@ -33,24 +42,27 @@ export const Chart = () => {
         })
     });
 
-    // let total = 0;
+    let keys = Object.keys(portfolioMonths);
+    let coupons = keys.map(key => portfolioMonths[key].coupon);
+    maxCouponValue = Math.max(...coupons);
+    minCouponValue = Math.min(...coupons);
 
-    // months.map(m => {
-    //     if (portfolioMonths[m]) {
-    //         const items = portfolioMonths[m];
-    //         items.map(p => parseFloat(p.bond.coupon) * p.count )
-    //     }
-    // });
-    // console.log(portfolio);
-    // console.log(portfolioMonths);
+    // TODO: возврат средств от момента вложения до последнего погашения
+    // TODO: регулировать прозрачность в зависимости от количества платежей, чем меньше тем прозрачнее
 
     return (
-        <div className="chart">
-            {months.map(m => (
-                <div className="month">
-                    {m}: {portfolioMonths[m] ? portfolioMonths[m].coupon : 0}
-                </div>
-            ))}
+        <div className="chart-container">
+            <h2>Ежемесячный доход</h2>
+            <div className="chart">
+                {months.map((month, index) => (
+                    <div key={month} className="month" style={{ 
+                        height: getBarHeightString(index + 1) 
+                    }}>
+                        <div className="price">{getCouponValue(index + 1)}р</div>
+                        <div className="label">{month}</div>
+                    </div>
+                ))}
+            </div>
         </div>
     )
 }

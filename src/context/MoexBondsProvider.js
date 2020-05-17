@@ -76,12 +76,15 @@ export const MoexBondsProvider = ({children}) => {
         const boards = filter.boards;
         const currencies = filter.currencies;
         const month = filter.month;
-        const filteredBonds = bonds.filter(bond => boards.includes(bond.board)
-            && currencies.includes(bond.currency) 
+        const filteredBonds = bonds.concat().filter(bond => boards.includes(bond.board)
+            && currencies.includes(bond.currency)
             && (!month || bond.months.includes(month))
             && bond.price != null
             && bond.coupon > 0
         );
+        // console.log(bonds);
+        // console.log(bonds[1810])
+        // console.log(filteredBonds[238])
         return filteredBonds;
     }
 

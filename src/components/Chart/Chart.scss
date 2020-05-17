@@ -1,0 +1,50 @@
+.chart-container {
+    padding: 10px;
+
+    h2 {
+        margin: 0;
+        padding: 0;
+        opacity: .5;
+        font-weight: normal;
+    }
+}
+.chart {
+    border-top: 1px dashed gold;
+    height: 200px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    margin-top: 10px;
+    padding-top: 5px;
+
+    .month {
+        background-color: dodgerblue;
+        margin: 1px;
+        flex-grow: 1;
+        text-align: center;
+        position: relative;
+        height: 5%;
+        transition: height 1s;
+        
+
+        &:hover {
+            cursor: pointer;
+            opacity: .8;
+        }
+
+        .price {
+            position: absolute;
+            font-size: 10px;
+            text-align: center;
+            text-shadow: 0px 0px 5px white;
+        }
+
+        .label {
+            font-size: 12px;
+            position: absolute;
+            bottom: -18px;
+            left: 15%;
+            text-align: center;
+        }
+    }
+}

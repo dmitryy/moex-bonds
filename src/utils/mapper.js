@@ -40,9 +40,11 @@ export const mapResponseToBonds = (securities, columns) => {
             expireDate: value.MATDATE,
             coupon: value.COUPONVALUE,
             couponPeriod: value.COUPONPERIOD,
-            couponPercent: value.COUPONPERCENT,
+            couponPercent: value.YIELDATPREVWAPRICE, // value.COUPONPERCENT,
             couponDate: value.NEXTCOUPON,
-            currency: value.CURRENCYID,
+            couponAccumulated: value.ACCRUEDINT, // НКД
+            couponCount: calculateCouponCount(value.NEXTCOUPON, value.MATDATE, value.COUPONPERIOD),
+            currency: value.FACEUNIT, // value.CURRENCYID,
             value: value.LOTVALUE,
             board: value.BOARDID,
             isin: value.ISIN,
@@ -53,13 +55,17 @@ export const mapResponseToBonds = (securities, columns) => {
             //expireDays: calculateExpireDays(value.MATDATE)
         };
 
-        if (bond[2] === 'ОФЗ 26227') {
-            console.log(value)
-            console.log(returnValue)
-        }
-        if (returnValue.isin == 'RU000A0JXE06') {
-            console.log('RU000A0JXE06', returnValue);
-        }
+        // if (bond[2] === 'ОФЗ 26227') {
+        //     console.log(value)
+        //     console.log(returnValue)
+        // }
+        // if (returnValue.isin == 'RU000A0JXE06') {
+        //     console.log('RU000A0JXE06', returnValue);
+        // }
+        // if (bond[2] === 'RUS-28') {
+        //     console.log(value)
+        //     console.log(returnValue)
+        // }
 
         return returnValue;
     });
@@ -77,7 +83,7 @@ const calculateCouponMonths = (couponDateStr, expireDateStr, period) => {
     let months = {};
     let paysPerYear = Math.floor(365 / period);
 
-    while (couponDate < expireDate && Object.keys(months).length < paysPerYear) {
+    while (couponDate <= expireDate && Object.keys(months).length < paysPerYear) {
         months[couponDate.getMonth() + 1] = couponDate;
         couponDate.setDate(couponDate.getDate() + period);
     }
@@ -90,4 +96,10 @@ const calculateExpireDays = (expireDateStr) => {
     let currentDate = new Date();
     let days = Math.round((expireDate - currentDate) / (1000 * 3600 * 24));
     return days;
+}
+
+const calculateCouponCount = (couponDateStr, expireDateStr, period) => {
+    let couponDate = new Date(couponDateStr);
+    let expireDate = new Date(expireDateStr);
+    return Math.round((expireDate - couponDate) / (1000 * 3600 * 24) / period + 1);
 }

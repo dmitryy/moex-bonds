@@ -16,14 +16,25 @@ export const Portfolio = (props) => {
     const calculateCost = (bond, count) => {
         const value = parseFloat(bond.value);
         const price = parseFloat(bond.price);
-        return Math.round(value * price * count / 100);
+        const couponAccumulated = parseFloat(bond.couponAccumulated);
+        return Math.round(value * price * count / 100) + couponAccumulated * count;
     }
 
     const calculateTotal = () => {
         let total = 0;
         portfolio.map(p => total += calculateCost(p.bond, p.count));
-        return total;
+        return Math.round(total * 100) / 100;
     }
+
+    // TODO: удалить из портфеля
+    
+    // TODO: более компактный стиль
+
+    // TODO: отображать фоновым баром процент от общего портфеля
+
+    // TODO: при клике или наведении на бар, подсвечивать облигации в этом баре
+
+    // TODO: сделать возможность поиска при клике
 
     return (
         <div className="portfolio">
