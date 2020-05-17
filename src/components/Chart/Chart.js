@@ -8,7 +8,7 @@ export const Chart = () => {
     const { portfolio } = useContext(MoexBondsContext);
     const portfolioMonths = {};
     let maxCouponValue = 0;
-    let minCouponValue = 0;
+    let maxCouponCount = 0;
 
     const calculateTotalCoupon = (items) => {
         let total = 0;
@@ -29,6 +29,21 @@ export const Chart = () => {
         return percent + '%';
     }
 
+    const getBarOpacityString = (monthIndex) => {
+        const counts = getCouponCountByMonth(monthIndex);
+        const min = Math.min(...counts);
+        let opacity = min / maxCouponCount * 0.5 + 0.5;
+        // TODO: прозрачность бара в зависимости от экспирации
+        //       это работает не правильно, нужно учитывать дни до экспирации, а не кол-во купонов
+        return `${opacity} `;
+    }
+
+    const getCouponCountByMonth = (monthIndex) => {
+        return portfolioMonths[monthIndex] 
+            ? portfolioMonths[monthIndex].items.map(i => i.bond.couponCount) 
+            : [];
+    }
+
     portfolio.map(item => {
         item.bond.months.map(month => {
             if (!portfolioMonths[month]) {
@@ -44,11 +59,14 @@ export const Chart = () => {
 
     let keys = Object.keys(portfolioMonths);
     let coupons = keys.map(key => portfolioMonths[key].coupon);
+    // let counts = keys.map(key => {
+    //     let c = getCouponCountByMonth(key)
+    //     return Math.min(...c); // судим о сроке погашения по минимальному в месяце
+    // });
     maxCouponValue = Math.max(...coupons);
-    minCouponValue = Math.min(...coupons);
+    //maxCouponCount = Math.max(...counts);
 
     // TODO: возврат средств от момента вложения до последнего погашения
-    // TODO: регулировать прозрачность в зависимости от количества платежей, чем меньше тем прозрачнее
 
     return (
         <div className="chart-container">
@@ -56,7 +74,8 @@ export const Chart = () => {
             <div className="chart">
                 {months.map((month, index) => (
                     <div key={month} className="month" style={{ 
-                        height: getBarHeightString(index + 1) 
+                        height: getBarHeightString(index + 1),
+                        //opacity: getBarOpacityString(index + 1)
                     }}>
                         <div className="price">{getCouponValue(index + 1)}р</div>
                         <div className="label">{month}</div>

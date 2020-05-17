@@ -4,20 +4,14 @@ import { TableCell, TableRow } from '@material-ui/core';
 export const BondTableRow = (props) => {
     const { row, columns } = props;
 
-    const handleRowClick = (row, col) => {
-        col.onClick(row);
-    }
-
     return (
         <TableRow hover>
             {columns.map(col => 
                 <TableCell 
+                    key={col.id}    
                     align={col.numeric ? 'right' : 'left'}
-                    key={col.id}>
-                    {col.template && col.onClick
-                        ? React.cloneElement(col.template, {onClick: () => { handleRowClick(row, col)}})
-                        : row[col.id]
-                    }
+                >
+                    {col.template && typeof(col.template) == 'function' ? col.template(row) : row[col.id]}
                 </TableCell>
             )}
         </TableRow>
