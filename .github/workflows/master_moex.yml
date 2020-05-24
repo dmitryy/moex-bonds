@@ -20,11 +20,9 @@ jobs:
       with:
         node-version: '10.1'
 
-    - name: npm install, build, and test
-      run: |
+    - name: npm install
+      run:
         npm install
-        npm run build --if-present
-        npm run test --if-present
 
     - name: 'Deploy to Azure Web App'
       uses: azure/webapps-deploy@v1
@@ -33,3 +31,4 @@ jobs:
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_55926a231c5e4a98878504564a4fe07a }}
         package: .
+        StartupCommand: 'yarn start'

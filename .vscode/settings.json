@@ -1,5 +1,11 @@
 {
     "emmet.includeLanguages": {
         "javascript": "javascriptreact"
-    }
+    },
+    "appService.zipIgnorePattern": [
+        "node_modules{,/**}",
+        ".vscode{,/**}"
+    ],
+    "appService.defaultWebAppToDeploy": "/subscriptions/610efa0c-7f1c-41a7-8bfd-4346310e7f76/resourceGroups/cloud-shell-storage-westeurope/providers/Microsoft.Web/sites/moex",
+    "appService.deploySubpath": ""
 }
