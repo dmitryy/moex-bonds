@@ -18,7 +18,7 @@ jobs:
     - name: Set up Node.js version
       uses: actions/setup-node@v1
       with:
-        node-version: '10.1'
+        node-version: '12.x'
 
     - name: npm install
       run:
@@ -29,6 +29,6 @@ jobs:
       with:
         app-name: 'moex'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_55926a231c5e4a98878504564a4fe07a }}
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_a99ef82e4557417191b23e566a84e37b }}
         package: .
         StartupCommand: 'yarn start'
