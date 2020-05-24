@@ -30,8 +30,8 @@ export const Filter = () => {
 
     return (
         <div className="filter">
-            <FormControl>
-                <InputLabel id='filter-month'>Месяц</InputLabel>
+            <FormControl className='select-month'>
+                <InputLabel id='filter-month'>Месяц выплат</InputLabel>
                 <Select
                     labelId='filter-month'
                     value={filter.month || 0}
