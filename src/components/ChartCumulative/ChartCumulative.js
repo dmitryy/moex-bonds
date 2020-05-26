@@ -105,18 +105,21 @@ export const ChartCumulative = () => {
     const portfolioTotal = calculateTotal();
     const returnTotal = returns[returns.length - 1] || 0;
     const profit = round(returnTotal - portfolioTotal);
-    const profitPercent = profit > 0 ? round((returnTotal / portfolioTotal) * 100) : 0;
+    //const profitPercent = profit > 0 ? round((returnTotal / portfolioTotal) * 100) : 0;
     const drawLimit = 100;
     const drawReturns = returns.length > drawLimit ? returns.concat().splice(returns.length - drawLimit) : returns;
     const yearsCount = round(returns.length/12);
     const annualProfit = portfolioTotal > 0 ? round(Math.log(returnTotal / portfolioTotal) / yearsCount * 100) : 0;
 
+    // TODO: учитывать номинальную стоимость купона при возврате средств
+    // TODO: refactor code and move some function to utils
+    
     return (
         <div className='chart-cumulative-container'>
             <h2>Возврат</h2>
             <p>
-                Через {returns.length} месяцев возврат средств составит {returnTotal}р. Прибыль {profit}р. ({profitPercent}%).
-                Или через {yearsCount} лет {annualProfit}% годовых.
+                Через {returns.length} месяцев возврат средств составит {returnTotal}р.<br/>
+                Прибыль через <b>{yearsCount}</b> лет составит {profit}р. или <b>{annualProfit}%</b> годовых.
             </p>        
             <div className='chart-cumulative'>
                 {drawReturns.map((r, index) => 
