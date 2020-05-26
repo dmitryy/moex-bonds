@@ -4,7 +4,7 @@ import { mapResponseToBoards, mapResponseToBonds } from '../utils/mapper';
 /**
  * Moex boards documentation: http://ftp.moex.com/pub/ClientsAPI/ASTS/docs/ASTS_Markets_and_Boards.pdf
  */
-const moexBaseUrl = 'http://iss.moex.com/iss';
+const moexBaseUrl = 'https://iss.moex.com/iss';
 const moexBoardsUrl = `${moexBaseUrl}/index.json`;
 const moexBondsUrl = `${moexBaseUrl}/engines/stock/markets/bonds/securities.json`;
 
