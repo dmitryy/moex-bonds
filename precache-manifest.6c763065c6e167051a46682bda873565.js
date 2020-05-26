@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "a6124f43b90410f0f79bb28ba55a729d",
+    "revision": "7545f6304073112fc42c91130a0ac97d",
     "url": "/moex-bonds/index.html"
   },
   {
-    "revision": "18d058af2d3afdc053d0",
+    "revision": "3ae8bb0e164801624cf5",
     "url": "/moex-bonds/static/css/main.c20bb07b.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/moex-bonds/static/js/2.6fcaa3d3.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "18d058af2d3afdc053d0",
-    "url": "/moex-bonds/static/js/main.58bdb5c0.chunk.js"
+    "revision": "3ae8bb0e164801624cf5",
+    "url": "/moex-bonds/static/js/main.5d8a0827.chunk.js"
   },
   {
     "revision": "7ffba69abc9cbf6b0c6e",

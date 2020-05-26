@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/moex-bonds/static/css/main.c20bb07b.chunk.css",
-    "main.js": "/moex-bonds/static/js/main.58bdb5c0.chunk.js",
-    "main.js.map": "/moex-bonds/static/js/main.58bdb5c0.chunk.js.map",
+    "main.js": "/moex-bonds/static/js/main.5d8a0827.chunk.js",
+    "main.js.map": "/moex-bonds/static/js/main.5d8a0827.chunk.js.map",
     "runtime-main.js": "/moex-bonds/static/js/runtime-main.15102b68.js",
     "runtime-main.js.map": "/moex-bonds/static/js/runtime-main.15102b68.js.map",
     "static/js/2.6fcaa3d3.chunk.js": "/moex-bonds/static/js/2.6fcaa3d3.chunk.js",
     "static/js/2.6fcaa3d3.chunk.js.map": "/moex-bonds/static/js/2.6fcaa3d3.chunk.js.map",
     "index.html": "/moex-bonds/index.html",
-    "precache-manifest.2f008dc56a3f9a3c0ce7b6fb4ff5b4bd.js": "/moex-bonds/precache-manifest.2f008dc56a3f9a3c0ce7b6fb4ff5b4bd.js",
+    "precache-manifest.6c763065c6e167051a46682bda873565.js": "/moex-bonds/precache-manifest.6c763065c6e167051a46682bda873565.js",
     "service-worker.js": "/moex-bonds/service-worker.js",
     "static/css/main.c20bb07b.chunk.css.map": "/moex-bonds/static/css/main.c20bb07b.chunk.css.map",
     "static/js/2.6fcaa3d3.chunk.js.LICENSE.txt": "/moex-bonds/static/js/2.6fcaa3d3.chunk.js.LICENSE.txt"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.15102b68.js",
     "static/js/2.6fcaa3d3.chunk.js",
     "static/css/main.c20bb07b.chunk.css",
-    "static/js/main.58bdb5c0.chunk.js"
+    "static/js/main.5d8a0827.chunk.js"
   ]
 }
