@@ -70,13 +70,17 @@ export const Chart = () => {
 
     return (
         <div className="chart-container">
-            <h2>Ежемесячный доход</h2>
+            <h2>Выплаты</h2>
             <div className="chart">
                 {months.map((month, index) => (
-                    <div key={month} className="month" style={{ 
-                        height: getBarHeightString(index + 1),
+                    <div
+                        key={month} 
+                        className="month" 
+                        style={{ 
+                            height: getBarHeightString(index + 1),
                         //opacity: getBarOpacityString(index + 1)
-                    }}>
+                        }}
+                    >
                         <div className="price">{getCouponValue(index + 1)}р</div>
                         <div className="label">{month}</div>
                     </div>

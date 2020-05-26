@@ -15,21 +15,14 @@ const calculateCouponMonths = (couponDateStr, expireDateStr, period) => {
     let couponDate = new Date(couponDateStr);
     let expireDate = new Date(expireDateStr);
     let months = {};
+    let paysPerYear = Math.floor(368 / period);
 
-    console.log(couponDate)
-    console.log(expireDate)
-    console.log('---')
-
-
-    while (couponDate <= expireDate) {
-        console.log('couponDate', couponDate)
-        console.log('month', couponDate.getMonth() + 1)
+    while (couponDate <= expireDate && Object.keys(months).length < paysPerYear) {
         months[couponDate.getMonth() + 1] = couponDate;
         couponDate.setDate(couponDate.getDate() + period);
     }
 
-    console.log('---')
-    console.log(Object.keys(months).map(m => parseInt(m)))
+    return Object.keys(months).map(m => parseInt(m));
 }
 
 //console.log(calculateCouponMonths("2020-07-22", "2024-07-17", 91))
@@ -69,5 +62,5 @@ const calculateCouponCount = (couponDateStr, expireDateStr, period) => {
     return (expireDate - couponDate) / (1000 * 3600 * 24) / period + 1
 }
 
-console.log(calculateCouponCount("2020-08-06", "2032-01-22", 91))
-console.log(calculateCouponCount("2020-09-15", "2020-09-15", 182))
+console.log(calculateCouponMonths("2020-09-15", "2020-09-15", 182))
+//console.log(calculateCouponCount("2020-09-15", "2020-09-15", 182))

@@ -1,0 +1,8 @@
+.remove-item {
+    cursor: pointer;
+    opacity: .6;
+
+    &:hover {
+        opacity: 1;
+    }
+}

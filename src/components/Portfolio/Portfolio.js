@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { MoexBondsContext } from '../../context/MoexBondsContext';
-import { TextField } from '@material-ui/core';
+import { PortfolioItem } from '../PortfolioItem/PortfolioItem';
 import './Portfolio.scss';
 
 export const Portfolio = (props) => {
@@ -10,6 +10,11 @@ export const Portfolio = (props) => {
         const changedPortfolio = portfolio.concat();
         const portfolioBond = changedPortfolio.filter(p => p.bond.isin == bond.isin)[0];
         portfolioBond.count = event.target.value;
+        setPortfolio(changedPortfolio);
+    }
+
+    const removeItem = (bond) => {
+        const changedPortfolio = portfolio.concat().filter(p => p.bond.isin != bond.isin);
         setPortfolio(changedPortfolio);
     }
 
@@ -43,24 +48,13 @@ export const Portfolio = (props) => {
             {!!portfolio.length 
                 && <div className="list">
                     {portfolio.map(item => (
-                        <div key={item.bond.isin} className="bond">
-                            <div className="name">
-                                {item.bond.name} ({item.bond.expireDate})
-                            </div>
-                            <div className="coupon">
-                                {item.bond.couponPercent}%
-                            </div>
-                            <div className="count">
-                                <TextField
-                                    type="number"
-                                    value={item.count}
-                                    onChange={(event) => changeCount(event, item.bond)}
-                                />
-                            </div>
-                            <div className="cost">
-                                {calculateCost(item.bond, item.count)} р.
-                            </div>
-                        </div>
+                        <PortfolioItem 
+                            key={item.bond.isin} 
+                            bond={item.bond} 
+                            count={item.count} 
+                            changeCount={changeCount}
+                            removeItem={removeItem}
+                        />
                     ))}
                     <div className="total">
                         {calculateTotal()} р.

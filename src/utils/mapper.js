@@ -37,15 +37,15 @@ export const mapResponseToBonds = (securities, columns) => {
         const returnValue = {
             name: value.SHORTNAME,
             price: value.PREVPRICE,
-            expireDate: value.MATDATE,
+            expireDate: value.MATDATE != '0000-00-00' ? value.MATDATE : value.BUYBACKDATE,
             coupon: value.COUPONVALUE,
             couponPeriod: value.COUPONPERIOD,
             couponPercent: value.YIELDATPREVWAPRICE, // value.COUPONPERCENT,
             couponDate: value.NEXTCOUPON,
             couponAccumulated: value.ACCRUEDINT, // НКД
-            couponCount: calculateCouponCount(value.NEXTCOUPON, value.MATDATE, value.COUPONPERIOD),
+            couponCount: calculateCouponCount(value.NEXTCOUPON, value.MATDATE != '0000-00-00' ? value.MATDATE : value.BUYBACKDATE, value.COUPONPERIOD),
             currency: value.FACEUNIT, // value.CURRENCYID,
-            value: value.LOTVALUE,
+            value: value.MATDATE != '0000-00-00' ? value.LOTVALUE : value.BUYBACKPRICE, // BUYBACKPRICE
             board: value.BOARDID,
             isin: value.ISIN,
 
@@ -55,10 +55,10 @@ export const mapResponseToBonds = (securities, columns) => {
             //expireDays: calculateExpireDays(value.MATDATE)
         };
 
-        // if (bond[2] === 'ОФЗ 26227') {
-        //     console.log(value)
-        //     console.log(returnValue)
-        // }
+        if (bond[2] === 'ФинАвиа 01') {
+            console.log(value)
+            console.log(returnValue)
+        }
         // if (returnValue.isin == 'RU000A0JXE06') {
         //     console.log('RU000A0JXE06', returnValue);
         // }
@@ -81,7 +81,7 @@ const calculateCouponMonths = (couponDateStr, expireDateStr, period) => {
     let couponDate = new Date(couponDateStr);
     let expireDate = new Date(expireDateStr);
     let months = {};
-    let paysPerYear = Math.floor(365 / period);
+    let paysPerYear = Math.floor(368 / period);
 
     while (couponDate <= expireDate && Object.keys(months).length < paysPerYear) {
         months[couponDate.getMonth() + 1] = couponDate;

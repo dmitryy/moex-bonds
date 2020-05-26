@@ -1,0 +1,60 @@
+.chart-cumulative-container {
+    padding: 10px;
+
+    h2 {
+        margin: 0;
+        padding: 0;
+        opacity: .5;
+        font-weight: normal;
+    }
+
+    p {
+        font-size: 10px;
+        margin: 0;
+        padding: 0;
+    }
+}
+
+.chart-cumulative {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    height: 160px;
+
+    .chart-cumulative-bar {
+        background-color: dodgerblue;
+        cursor: pointer;
+        flex-grow: 1;
+        text-align: center;
+        // position: relative;
+        height: 5%;
+        transition: height 1s;
+        margin: 1px;
+        overflow: visible;
+
+        .return {
+            opacity: 0;
+            position: absolute;
+            transform: translate(-35%, -100%);
+            transition: opacity 300ms;
+        }
+
+        .month {
+            opacity: 0;
+            font-size: 10px;
+            position: absolute;
+            bottom: 5px;
+            text-align: center;
+            transition: opacity 300ms;
+        }
+
+        &:hover {
+            opacity: .8;
+
+            .month,
+            .return {
+                opacity: 1;
+            }
+        }
+    }
+}

@@ -5,6 +5,7 @@ import { Filter } from '../components/Filter/Filter';
 import { Portfolio } from '../components/Portfolio/Portfolio';
 import { Chart } from '../components/Chart/Chart';
 import './Home.scss';
+import { ChartCumulative } from '../components/ChartCumulative/ChartCumulative';
 
 export const Home = () => {
 
@@ -18,6 +19,9 @@ export const Home = () => {
         <div className="container">
             <div className="portfolio-chart">
                 <Chart />
+            </div>
+            <div className="returns-chart">
+                <ChartCumulative />
             </div>
             <div className="bonds-filter">
                 <Filter />

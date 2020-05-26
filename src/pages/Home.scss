@@ -1,15 +1,20 @@
 .container {
     display: grid;
     grid-template-areas:
-        "chart search"
-        "chart bonds"
-        "portfolio bonds";
+        "chart1 search"
+        "chart1 bonds"
+        "portfolio bonds"
+        "chart2 bonds";
     height: 100%;
     grid-template-columns: 30% 70%;
-    grid-template-rows: 150px 150px auto;
+    grid-template-rows: 150px 150px auto 250px;
 
     .portfolio-chart {
-        grid-area: chart;
+        grid-area: chart1;
+    }
+
+    .returns-chart {
+        grid-area: chart2;
     }
 
     .portfolio-list {
