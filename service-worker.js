@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/moex-bonds/precache-manifest.a855dd101f7ffcf5318136c89e1fe1b7.js"
+  "/moex-bonds/precache-manifest.2f008dc56a3f9a3c0ce7b6fb4ff5b4bd.js"
 );
 
 self.addEventListener('message', (event) => {
