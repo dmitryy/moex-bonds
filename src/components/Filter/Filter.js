@@ -1,7 +1,8 @@
 import React, { useContext } from 'react'
-import { Button, Select, FormControl, InputLabel, MenuItem } from '@material-ui/core'
+import { Button, Select, FormControl, InputLabel, MenuItem, Input, Checkbox, ListItemText } from '@material-ui/core'
 import { MoexBondsContext } from '../../context/MoexBondsContext';
 import { months } from '../../common/months';
+import { SecTypeList } from '../../common/secType';
 import './Filter.scss';
 
 export const Filter = () => {
@@ -21,6 +22,12 @@ export const Filter = () => {
         setFilter(modifiedFilter);
     }
 
+    const changeType = (event) => {
+        const types = event.target.value;
+        const modifiedFilter = { ...filter };
+        modifiedFilter.types = types;
+        setFilter(modifiedFilter);
+    }
 
     // TODO: добавить валюты
 
@@ -44,6 +51,31 @@ export const Filter = () => {
                             key={index + 1}
                         >
                             {month}
+                        </MenuItem>
+                    ))}
+                </Select>
+            </FormControl>
+
+            <FormControl>
+                <InputLabel id='filter-type'>Тип</InputLabel>
+                <Select multiple
+                    labelId='filter-type'
+                    value={filter.types}
+                    onChange={changeType}
+                    input={<Input />}
+                    renderValue={(selected) => {
+                        return selected.map(t => {
+                            let index = SecTypeList.findIndex(st => st.type == t);
+                            if (index != -1) {
+                                return SecTypeList[index].name;
+                            }
+                        }).join(',')
+                    }}
+                >
+                    {SecTypeList.map((t) => (
+                        <MenuItem key={t.type} value={t.type}>
+                            <Checkbox checked={filter.types.indexOf(t.type) > -1} />
+                            <ListItemText primary={t.name} />
                         </MenuItem>
                     ))}
                 </Select>

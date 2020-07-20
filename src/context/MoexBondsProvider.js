@@ -2,6 +2,7 @@ import React, { useReducer } from 'react'
 import { MoexBondsReducer } from './MoexBondsReducer'
 import { GET_ALL_BOARDS, GET_ALL_BONDS, SET_LOADING, SET_FILTERED_BONDS, SET_FILTER, SET_PORTFOLIO } from '../store/actions/ActionTypes';
 import { MoexBondsContext } from './MoexBondsContext';
+import { SecType } from '../common/secType';
 import { 
     getBonds as getMoexBonds, 
     getBoards as getMoexBoards
@@ -13,9 +14,10 @@ export const MoexBondsProvider = ({children}) => {
         boards: [],
         bonds: [],
         filter: {
-            boards: ['TQOD', 'TQOB', 'TQCB'],
-            currencies: ['SUR'],
+            boards: ['TQOD', 'TQOB', 'TQCB'], // 'TQOB', 'TQCB'
+            currencies: ['SUR'], // 'SUR', 'USD'
             month: null,
+            types: [ SecType.BondGov ]
         },
         initialBonds: [],
         loading: false,
@@ -76,15 +78,17 @@ export const MoexBondsProvider = ({children}) => {
         const boards = filter.boards;
         const currencies = filter.currencies;
         const month = filter.month;
+        const types = filter.types;
         const filteredBonds = bonds.concat().filter(bond => boards.includes(bond.board)
             && currencies.includes(bond.currency)
+            && types.includes(bond.type)
             && (!month || bond.months.includes(month))
             && bond.price != null
             && bond.coupon > 0
         );
         // console.log(bonds);
         // console.log(bonds[1810])
-        // console.log(filteredBonds[238])
+        //console.log(filteredBonds)
         return filteredBonds;
     }
 

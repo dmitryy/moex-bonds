@@ -50,7 +50,7 @@ export const Bonds = () => {
                     )
                 },
                 //{ id: 'currency', numeric: true, disablePadding: true, label: 'Валюта' },
-                //{ id: 'value', numeric: true, disablePadding: true, label: 'Номинал' },
+                { id: 'value', numeric: true, disablePadding: true, label: 'Номинал' },
                 { id: 'expireDate', numeric: true, disablePadding: false, label: 'Погашение' },
                 //{ id: 'months', numeric: true, disablePadding: false, label: 'Выплаты' },
                 { id: 'couponCount', numeric: true, disablePadding: false, label: 'Купонов' },
@@ -58,7 +58,8 @@ export const Bonds = () => {
                 { id: 'coupon', numeric: true, disablePadding: false, label: 'Купон' },
                 { id: 'couponAccumulated', numeric: true, disablePadding: false, label: 'НКД' },
                 { id: 'price', numeric: true, disablePadding: false, label: 'Тек.Цена' },                
-                { id: 'couponPercent', numeric: true, disablePadding: false, label: 'Доходность' },
+                { id: 'couponPercent', numeric: true, disablePadding: false, label: 'Доходность (Бирж)' },
+                { id: 'profitPercent', numeric: true, disablePadding: false, label: 'Доходность (Расч)' },
                 { id: 'isin', numeric: false, disablePadding: false, 
                     template: (bond) => (
                         <Link
